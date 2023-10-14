@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Ask Page </title>
+</head>
+<body>
+  <!-- Ask Container  -->
+  <div class="ask_cont" id="ask_cont">
+    <!-- Ask Container Text  -->
+<div class="ask_Cont_Text" id="ask_Cont_Text">
+Get Answered
+</div>
+<div class="close_button">
+  <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 49 49" fill="none">
+    <path d="M36.75 12.25L12.25 36.75" stroke="#33363F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12.25 12.25L36.75 36.75" stroke="#33363F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+<!-- Name Box  -->
+<div class="name_box" id="name_box">
+<input type="text" placeholder="Enter Your Name">
+<svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+  <circle cx="15.5" cy="9.04167" r="5.16667" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>
+  <path d="M7.2509 22.3578C8.09473 19.6137 10.8134 18.0833 13.6843 18.0833H17.3158C20.1866 18.0833 22.9054 19.6137 23.7492 22.3578C24.1029 23.5081 24.3976 24.8025 24.5016 26.1259C24.5448 26.6765 24.094 27.125 23.5417 27.125H7.45837C6.90609 27.125 6.45526 26.6765 6.49851 26.1259C6.60245 24.8025 6.89716 23.5081 7.2509 22.3578Z" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+
+<!-- Describe Box  -->
+<div class="describe_box_cont">
+  <textarea class="describe_box" placeholder="Describe"></textarea>
+</div>
+
+<!-- Post Image  -->
+<div class="post_image">
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+    <path d="M25 16.25V22.5C25 23.8807 23.8807 25 22.5 25H7.5C6.11929 25 5 23.8807 5 22.5L5 16.25M20 10L15 5M15 5L10 10M15 5L15 20" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<!-- Post Button Started -->
+
+<div class="post_button">
+<button class="post">
+POST
+</button>
+</div>
+  </div>
+</body>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js";
+  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-database.js";
+
+  // Your Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyC6PPj6z7Gq0YPs-JD-btE6J_da87ypX5k",
+    authDomain: "lpuxhackfest.firebaseapp.com",
+    databaseURL: "https://lpuxhackfest-default-rtdb.firebaseio.com",
+    projectId: "lpuxhackfest",
+    storageBucket: "lpuxhackfest.appspot.com",
+    messagingSenderId: "912787269641",
+    appId: "1:912787269641:web:f91895b8ab17285d7c30d8",
+    measurementId: "G-1JNCM7LNXN"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase();
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const nameInput = document.querySelector("#name_box input");
+    const descriptionInput = document.querySelector(".describe_box");
+    const postButton = document.querySelector(".post");
+
+    postButton.addEventListener("click", function () {
+      const name = nameInput.value;
+      const description = descriptionInput.value;
+
+      // Push user data to Firebase
+      const userDataRef = ref(database, "user_data");
+      push(userDataRef, { name, description });
+
+      // Notify the user (you can customize this part)
+      alert("Data saved to Firebase!");
+
+      // Clear the input fields
+      nameInput.value = "";
+      descriptionInput.value = "";
+    });
+  });
+</script>
+</html>
+
+
